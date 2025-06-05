@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe Completo - Google Ads Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f7fa;
+            line-height: 1.4;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 28px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+        }
+        .periodo {
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        /* TABLA PRINCIPAL */
+        .tabla-campanas {
+            margin-bottom: 40px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 13px;
+        }
+        th {
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            color: white;
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: bold;
+            border: 1px solid #2c3e50;
+        }
+        td {
+            padding: 10px 8px;
+            text-align: center;
+            border: 1px solid #bdc3c7;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        tr:hover {
+            background-color: #e8f4f8;
+        }
+        .campana-name {
+            text-align: left;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        .total-row {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            font-weight: bold;
+        }
+        .total-row td {
+            border: 1px solid #2980b9;
+        }
+        
+        /* SECCIÓN DE ANÁLISIS */
+        .analisis-section {
+            margin-top: 40px;
+        }
+        .analisis-title {
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 20px;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+        }
+        .resumen-general {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .metricas-clave {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .metrica-card {
+            background: white;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .metrica-valor {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .metrica-label {
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        .categoria {
+            margin-bottom: 25px;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+        .top-campanas {
+            background-color: #d5f4e6;
+            border-left-color: #27ae60;
+        }
+        .problematicas {
+            background-color: #fdf2f2;
+            border-left-color: #e74c3c;
+        }
+        .critico {
+            background-color: #fff5f5;
+            border-left-color: #c53030;
+        }
+        .recomendaciones {
+            background-color: #f0f8ff;
+            border-left-color: #3498db;
+        }
+        
+        .categoria h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .campana-item {
+            background: white;
+            margin: 8px 0;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        .campana-nombre {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .campana-detalle {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        .accion-urgente {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .accion-recomendada {
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .highlight-red { background-color: #ffebee; color: #c62828; font-weight: bold; }
+        .highlight-green { background-color: #e8f5e8; color: #2e7d32; font-weight: bold; }
+        .highlight-yellow { background-color: #fff8e1; color: #f57f17; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 INFORME COMPLETO - GOOGLE ADS ANALYSIS</h1>
+        
+        <div class="periodo">
+            Período de Análisis: 1 de enero de 2025 - 31 de mayo de 2025
+        </div>
+
+        <!-- TABLA DE CAMPAÑAS -->
+        <div class="tabla-campanas">
+            <h2 style="color: #2c3e50; margin-bottom: 20px;">📋 DATOS COMPLETOS POR CAMPAÑA</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>N°</th>
+                        <th>Campaña</th>
+                        <th>Impr.</th>
+                        <th>Clics</th>
+                        <th>CTR</th>
+                        <th>Conversiones</th>
+                        <th>% de conv.</th>
+                        <th>Costo</th>
+                        <th>Costo/conv.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td class="campana-name">Explora Taquilla Nacional 2020_11 de agosto_BTO</td>
+                        <td>16599</td>
+                        <td>6158</td>
+                        <td>37,10%</td>
+                        <td>114,59</td>
+                        <td class="highlight-yellow">1,86%</td>
+                        <td>$1901,37</td>
+                        <td class="highlight-green">$16,59</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td class="campana-name">Explora Taquilla Internacional (Inglés) 2024_12 de marzo_BTO</td>
+                        <td>6947</td>
+                        <td>2308</td>
+                        <td>33,22%</td>
+                        <td>7,48</td>
+                        <td class="highlight-red">0,32%</td>
+                        <td>$2051,1</td>
+                        <td class="highlight-red">$274,1</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td class="campana-name">Explora Móvil (Comunidad Educativa) Explora 2022_11 de enero_BTO</td>
+                        <td>68</td>
+                        <td>18</td>
+                        <td>26,47%</td>
+                        <td>2</td>
+                        <td class="highlight-green">11,11%</td>
+                        <td>$9,38</td>
+                        <td class="highlight-green">$4,69</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td class="campana-name">Taquilla Nacional Planetario 2020_9 de junio_BTO</td>
+                        <td>7003</td>
+                        <td>2688</td>
+                        <td>38,38%</td>
+                        <td>53,2</td>
+                        <td class="highlight-yellow">1,98%</td>
+                        <td>$1857,16</td>
+                        <td class="highlight-yellow">$34,91</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td class="campana-name">Servicios para Empresas Explora 2023_25 de julio_BTO</td>
+                        <td>206</td>
+                        <td>19</td>
+                        <td>9,22%</td>
+                        <td class="highlight-red">0</td>
+                        <td class="highlight-red">0,00%</td>
+                        <td>$20,58</td>
+                        <td class="highlight-red">$0</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td class="campana-name">Membresías Explora 2022_23 de julio_BTO</td>
+                        <td>2527</td>
+                        <td>998</td>
+                        <td>39,49%</td>
+                        <td>7,85</td>
+                        <td class="highlight-red">0,79%</td>
+                        <td>$899,97</td>
+                        <td class="highlight-red">$114,62</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td class="campana-name">Astrolabs Explora 2023_27 de noviembre_BTO</td>
+                        <td>634</td>
+                        <td>128</td>
+                        <td>20,19%</td>
+                        <td class="highlight-red">0</td>
+                        <td class="highlight-red">0,00%</td>
+                        <td>$69,6</td>
+                        <td class="highlight-red">$0</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td class="campana-name">Cursos 2020_11 de agosto_ Explora y Planetario_BTO</td>
+                        <td>143</td>
+                        <td>31</td>
+                        <td>21,68%</td>
+                        <td>1</td>
+                        <td>3,23%</td>
+                        <td>$29,94</td>
+                        <td class="highlight-yellow">$29,94</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td class="campana-name">Explora Taquilla Internacional 2023_19 Julio_BTO</td>
+                        <td>2477</td>
+                        <td>614</td>
+                        <td>24,79%</td>
+                        <td>8,47</td>
+                        <td class="highlight-yellow">1,38%</td>
+                        <td>$1084,68</td>
+                        <td class="highlight-red">$128,11</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td class="campana-name">Rutas Pedagógicas (Comunidad Educativa) Explora 2020_14 de octubre_BTO</td>
+                        <td>114</td>
+                        <td>5</td>
+                        <td>4,39%</td>
+                        <td class="highlight-red">0</td>
+                        <td class="highlight-red">0,00%</td>
+                        <td>$7,9</td>
+                        <td class="highlight-red">$0</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td><strong>TOTAL</strong></td>
+                        <td><strong>Total: Campañas</strong></td>
+                        <td><strong>36718</strong></td>
+                        <td><strong>12967</strong></td>
+                        <td><strong>35,32%</strong></td>
+                        <td><strong>194,6</strong></td>
+                        <td><strong>1,50%</strong></td>
+                        <td><strong>$7931,69</strong></td>
+                        <td><strong>$40,76</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ANÁLISIS COMPLETO -->
+        <div class="analisis-section">
+            <h2 class="analisis-title">📈 ANÁLISIS COMPLETO DE PERFORMANCE</h2>
+            
+            <div class="resumen-general">
+                <h3>🎯 PANORAMA GENERAL</h3>
+                <p><strong>Total:</strong> 36,718 impresiones → 12,967 clics → 194.6 conversiones</p>
+                <p><strong>Inversión total:</strong> $7,931.69 | <strong>CPA promedio:</strong> $40.76</p>
+                <p><strong>CTR promedio:</strong> 35.32% | <strong>Tasa de conversión:</strong> 1.50%</p>
+            </div>
+
+            <div class="metricas-clave">
+                <div class="metrica-card">
+                    <div class="metrica-valor">35.32%</div>
+                    <div class="metrica-label">CTR Promedio</div>
+                </div>
+                <div class="metrica-card">
+                    <div class="metrica-valor">1.50%</div>
+                    <div class="metrica-label">Tasa Conversión</div>
+                </div>
+                <div class="metrica-card">
+                    <div class="metrica-valor">$40.76</div>
+                    <div class="metrica-label">CPA Promedio</div>
+                </div>
+                <div class="metrica-card">
+                    <div class="metrica-valor">$7,931</div>
+                    <div class="metrica-label">Inversión Total</div>
+                </div>
+            </div>
+
+            <div class="categoria top-campanas">
+                <h3>🏆 CAMPAÑAS CON MEJOR CPA</h3>
+                <div class="campana-item">
+                    <div class="campana-nombre">1. Explora Comunidad Educativa (2022)</div>
+                    <div class="campana-detalle">CPA: $4.69 - Tasa conversión: 11.11% - 18 clics, 2 conversiones</div>
+                </div>
+                <div class="campana-item">
+                    <div class="campana-nombre">2. Explora Taquilla Nacional (2020)</div>
+                    <div class="campana-detalle">CPA: $16.59 - Tasa conversión: 1.86% - 6,158 clics, 114.59 conversiones</div>
+                </div>
+                <div class="campana-item">
+                    <div class="campana-nombre">3. Cursos Explora y Planetario</div>
+                    <div class="campana-detalle">CPA: $29.94 - Tasa conversión: 3.23% - 31 clics, 1 conversión</div>
+                </div>
+            </div>
+
+            <div class="categoria problematicas">
+                <h3>🚨 CAMPAÑAS CON CPA MÁS ALTO</h3>
+                <div class="campana-item">
+                    <div class="campana-nombre">Explora Internacional (Inglés)</div>
+                    <div class="campana-detalle">CPA: $274.1 - Tasa conversión: 0.32% - 2,308 clics, 7.48 conversiones</div>
+                </div>
+                <div class="campana-item">
+                    <div class="campana-nombre">Explora Internacional (2023)</div>
+                    <div class="campana-detalle">CPA: $128.11 - Tasa conversión: 1.38% - 614 clics, 8.47 conversiones</div>
+                </div>
+                <div class="campana-item">
+                    <div class="campana-nombre">Membresías Explora</div>
+                    <div class="campana-detalle">CPA: $114.62 - Tasa conversión: 0.79% - 998 clics, 7.85 conversiones</div>
+                </div>
+            </div>
+
+            <div class="categoria critico">
+                <h3>⛔ CAMPAÑAS CON 0 CONVERSIONES</h3>
+                <div class="campana-item">
+                    <div class="campana-nombre">• Servicios para Empresas</div>
+                    <div class="campana-detalle">$20.58 gastados - 0 conversiones</div>
+                </div>
+                <div class="campana-item">
+                    <div class="campana-nombre">• Astrolabs Explora</div>
+                    <div class="campana-detalle">$69.60 gastados - 0 conversiones</div>
+                </div>
+                <div class="campana-item">
+                    <div class="campana-nombre">• Rutas Pedagógicas</div>
+                    <div class="campana-detalle">$7.90 gastados - 0 conversiones</div>
+                </div>
+            </div>
+
+            <div class="accion-urgente">
+                <h3>🚨 ACCIONES URGENTES</h3>
+                <p><strong>PAUSAR INMEDIATAMENTE:</strong></p>
+                <ul>
+                    <li>Servicios para Empresas (0 conversiones)</li>
+                    <li>Astrolabs (0 conversiones)</li>
+                    <li>Rutas Pedagógicas (0 conversiones)</li>
+                </ul>
+                <p><strong>REDUCIR PRESUPUESTO:</strong></p>
+                <ul>
+                    <li>Explora Internacional (Inglés) - CPA insostenible</li>
+                    <li>Explora Internacional (2023) - CPA muy alto</li>
+                </ul>
+            </div>
+
+            <div class="accion-recomendada">
+                <h3>✅ PRÓXIMAS ACCIONES BASADAS EN DATOS</h3>
+                <p><strong>CAMPAÑAS CON MEJOR RENDIMIENTO (CPA &lt; $30):</strong></p>
+                <ul>
+                    <li>Explora Comunidad Educativa - CPA: $4.69</li>
+                    <li>Taquilla Nacional - CPA: $16.59 (mayor volumen: 114.59 conversiones)</li>
+                </ul>
+                <p><strong>ANÁLISIS TÉCNICO REQUERIDO:</strong></p>
+                <ul>
+                    <li>Analizar discrepancia: CTR 35.32% vs Tasa conversión 1.50%</li>
+                    <li>Revisar landing pages y funnel de conversión</li>
+                    <li>Auditar configuración de seguimiento en 5 campañas sin conversiones</li>
+                    <li>Evaluar calidad del tráfico vs intención de conversión</li>
+                </ul>
+            </div>
+
+            <div class="categoria recomendaciones">
+                <h3>📋 PROBLEMAS IDENTIFICADOS</h3>
+                <div class="campana-item">
+                    <div class="campana-nombre">1. MEDICIÓN Y SEGUIMIENTO</div>
+                    <div class="campana-detalle">5 campañas con 0 conversiones requieren revisión de configuración</div>
+                </div>
+                <div class="campana-item">
+                    <div class="campana-nombre">2. SEGMENTACIÓN</div>
+                    <div class="campana-detalle">CTR muy alto pero conversión baja = Tráfico no cualificado</div>
+                </div>
+                <div class="campana-item">
+                    <div class="campana-nombre">3. OPTIMIZACIÓN</div>
+                    <div class="campana-detalle">Campañas ineficientes siguen activas + Presupuesto mal distribuido</div>
+                </div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 10px; margin-top: 30px; text-align: center;">
+                <h2>🎯 CONCLUSIÓN Y PRÓXIMOS PASOS</h2>
+                <p style="font-size: 16px; margin-bottom: 15px; text-align: left;">
+                    <strong>HIPÓTESIS:</strong> Esta cuenta ha operado con presupuesto de beca de Google, lo que podría estar generando limitaciones en la medición y optimización de resultados. Los datos sugieren inconsistencias que podrían estar relacionadas con las restricciones típicas de cuentas subsidiadas.
+                </p>
+                <p style="font-size: 16px; margin-bottom: 15px; text-align: left;">
+                    <strong>PLAN DE VALIDACIÓN:</strong> Se propone implementar una estrategia dual con campañas de pago complementarias para establecer métricas de comparación y validar esta hipótesis:
+                </p>
+                <ul style="text-align: left; margin-bottom: 15px;">
+                    <li>Comparar rendimiento con presupuesto de beca (actual)</li>
+                    <li>Comparar rendimiento con presupuesto de pago (nuevo)</li>
+                    <li>Evaluar diferencias en control de segmentación y optimización</li>
+                    <li>Analizar patrones de conversión en ambos escenarios</li>
+                </ul>
+                <p style="font-size: 18px; margin: 0; text-align: center;">
+                    <strong>OBJETIVO:</strong> Obtener datos comparativos para validar o descartar la hipótesis y tomar decisiones estratégicas basadas en evidencia real.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
